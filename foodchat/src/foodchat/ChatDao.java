@@ -37,7 +37,7 @@ public class ChatDao {
 			stmt.setInt(1, i);
 			try (ResultSet rs = stmt.executeQuery()) {
 				rs.next();
-				return rs.getString("food_name");
+				return rs.getString("name");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

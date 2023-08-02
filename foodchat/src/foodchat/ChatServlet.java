@@ -17,7 +17,7 @@ public class ChatServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String food = dao.getById((int) (Math.random()*3)+1);
+		String food = dao.getById((int) (Math.random()*3)+1) + " 입니다.";
 		req.setAttribute("food", food);
 		
 		dao.plusResolve();

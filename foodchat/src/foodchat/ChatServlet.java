@@ -17,18 +17,8 @@ public class ChatServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String food = dao.getById((int) (Math.random()*3)+1) + " 입니다.";
-		req.setAttribute("food", food);
-		
-		dao.plusResolve();
-		String resolve = dao.getResolve();
-		req.setAttribute("resolve", resolve);
-		
 		resp.setStatus(200);
 		resp.setHeader("Content-Type", "application/json;charset=utf-8");
-		
-		resp.getWriter().write("{\"food\": \"" + food + "\",");
-		resp.getWriter().write("\"resolve\": \"" + resolve + "\"}");
 	}
 
 	@Override
@@ -47,19 +37,25 @@ public class ChatServlet extends HttpServlet {
 		m.find();
 		
 		String chat = m.group(1);
-		
 		System.out.println(chat);
-	}
-
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String food = dao.getById((int) (Math.random()*3)+1);
 		
+		String food;
+		if(chat.equals("사람") || chat.equals("날씨") || chat.equals("장소")) {
+			food = "그것은 어떤음식과 매칭?";
+		} else if ( chat.equals("떡볶이") || chat.equals("돈가스") || chat.equals("죽") ) {
+			food = "감사합니다. 무엇을 먹고싶으세요?";
+		} else {
+			food = "그것은 무엇?";
+		}
 		req.setAttribute("food", food);
+		System.out.println(food);
+		String resolve = "0";
+		
 		resp.setStatus(200);
 		resp.setHeader("Content-Type", "application/json;charset=utf-8");
-		
-		resp.getWriter().write("{\"food\": \"" + food + "\"}");
+		resp.getWriter().write("{\"food\": \"" + food + "\",");
+		resp.getWriter().write("\"resolve\": \"" + resolve + "\"}");
 	}
 	
+
 }

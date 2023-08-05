@@ -1,4 +1,4 @@
-package foodchat;
+package util;
 
 import java.io.IOException;
 
@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletResponse;
 
 @WebFilter("/*")
-public class CORSFilter implements Filter {
+public class CORSFilter implements Filter{
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -20,7 +20,8 @@ public class CORSFilter implements Filter {
 		resp.setHeader("Access-Control-Allow-Origin", "*");
 		resp.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
 		resp.setHeader("Access-Control-Allow-Headers", "*");
-		resp.setHeader("Access-Control-Max-age" , "3600");
+		resp.setHeader("Access-Control-Max-Age", "3600");
+		
 		chain.doFilter(request, response);
 	}
 	

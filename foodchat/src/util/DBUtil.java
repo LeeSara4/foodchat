@@ -1,4 +1,4 @@
-package dbutil;
+package util;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,7 +13,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 
 public class DBUtil {
 	private static DataSource ds;
-
+	
 	static {
 		try {
 			Properties prop = new Properties();

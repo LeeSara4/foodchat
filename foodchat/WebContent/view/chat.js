@@ -2,7 +2,6 @@ const url = "http://localhost:8080/foodchat/";
 const message = document.getElementById("chat");
 const submit = document.getElementById("submit");
 const chatLog = document.getElementById("chatLog");
-const resolved = document.getElementById("resolved");
 const listBox = document.getElementById("listBox");
 
 let optionList = [];
@@ -273,9 +272,6 @@ function handleButtonClick(e) {
 
 window.addEventListener("load", () => {
   firstMsg();
-  document.getElementById("map").addEventListener("click", () => {
-    window.location.href = "view/map.html";
-  });
   submit.addEventListener("click", handleButtonClick);
 });
 

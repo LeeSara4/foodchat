@@ -31,6 +31,24 @@ public class DBUtil {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void forTest() {
+		try {
+			Properties prop = new Properties();
+			ClassLoader classLoader = DBUtil.class.getClassLoader();
+			prop.load(classLoader.getResourceAsStream("foodchattest.properties"));
+
+			BasicDataSource basic = new BasicDataSource();
+			basic.setUrl(prop.getProperty("jdbcURL"));
+			basic.setDriverClassName(prop.getProperty("jdbcDriverName"));
+			basic.setUsername(prop.getProperty("jdbcUserName"));
+			basic.setPassword(prop.getProperty("jdbcPassword"));
+
+			ds = basic;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static Connection getConnection() throws SQLException {
 		return ds.getConnection();

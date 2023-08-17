@@ -12,7 +12,6 @@ import util.DBUtil;
 
 public class RecommendService {
 	ChatBotDAO dao = new ChatBotDAO();
-	List<String> exceptionList = null;
 	
 	public String recommendFoodName(List<String> knownList) {
 		Connection conn = null;
@@ -29,18 +28,27 @@ public class RecommendService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException();
+		} finally {
+			DBUtil.close(conn);
 		}
 	}
 
 	// excption테이블에 있는 필요없는 단어 제거해서 넘겨주기
 	public List<String> removeException(List<String> list) {
-		List<String> words = new ArrayList<>();
-		List<String> exception = exceptionList;
-
-		words.addAll(list);
-		words.removeAll(exception);
-		System.out.println(words);
-
-		return words;
+		Connection conn = null;
+		List<String> exceptionList = new ArrayList<>();
+		try {
+			conn = DBUtil.getConnection();
+			exceptionList = dao.getExceptions(conn);
+			list.removeAll(exceptionList);
+			if (list.size() > 0) {
+				return list;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(conn);
+		}
+		return null;
 	}
 }

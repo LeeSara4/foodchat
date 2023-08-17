@@ -1,3 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap");
+
+* {
+  color: #000;
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%;
+}
+
 #chatWrap {
   width: 600px;
   border: 1px solid #ddd;
@@ -18,20 +28,24 @@
   padding: 10px;
 }
 
+button {
+  font-size: 15px;
+}
+
 .myMsg {
   text-align: right;
+  margin-top: 8px;
 }
 
 .anotherMsg {
   text-align: left;
-  margin-bottom: 5px;
 }
 
 .msg {
   display: inline-block;
-  border-radius: 15px;
-  padding: 7px 15px;
-  margin-bottom: 10px;
+  border-radius: 50px;
+  padding: 15px 36px;
+  margin-bottom: 5px;
   margin-top: 5px;
 }
 
@@ -44,22 +58,31 @@
   color: #000000;
 }
 
+.myName {
+  text-align: right;
+  font-size: 12px;
+  padding: 0px 10px;
+  display: block;
+}
+
 .anotherName {
   font-size: 12px;
+  padding: 5px 6px;
   display: block;
 }
 
 #chatForm {
   display: block;
   width: 100%;
-  height: 50px;
+  height: 70px;
   border-top: 2px solid #f0f0f0;
 }
 
 #chat {
-  width: 85%;
+  width: 82%;
   height: calc(100% - 1px);
   border: none;
+  padding-left: 15px;
   padding-bottom: 0;
 }
 
@@ -73,6 +96,10 @@
   background: none;
   color: #0084ff;
   font-size: 17px;
+}
+
+#chatForm > input[type="submit"]:hover {
+  color: #82b7e7;
 }
 
 #memberWrap {
@@ -105,4 +132,67 @@
   padding-top: 20px;
   display: flex;
   justify-content: space-around;
+}
+
+#map {
+  width: 154px;
+  height: 50px;
+  flex-shrink: 0;
+  font-size: 25px;
+  border-radius: 50px;
+  border: none;
+  background: #ffe45e;
+}
+
+#map:hover {
+  background-color: #cfbe67;
+  transition: 0.7s;
+}
+
+#resolved {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+  padding: 20px;
+}
+
+.dropdown {
+  display: none;
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  background-color: white;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.show-dropdown {
+  width: 200px;
+  display: block;
+  animation: slide-up 0.3s ease-in-out;
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(60px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* 추가된 부분: 드롭다운 아이템 스타일 */
+.dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* 추가된 부분: 드롭다운 아이템 hover 스타일 */
+.dropdown-item:hover {
+  background-color: #f0f0f0;
 }

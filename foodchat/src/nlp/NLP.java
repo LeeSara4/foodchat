@@ -1,5 +1,6 @@
 package nlp;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -7,11 +8,16 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import chatBot.dao.ChatBotDAO;
+import chatBot.servlet.ChatServlet;
 import kr.co.shineware.nlp.komoran.constant.DEFAULT_MODEL;
 import kr.co.shineware.nlp.komoran.core.Komoran;
 import kr.co.shineware.nlp.komoran.model.Token;
 
 public class NLP {
+	// 코모란 생성
+	private static Komoran komoran = new Komoran(DEFAULT_MODEL.FULL);
+	private static ChatBotDAO dao = new ChatBotDAO();
 
 	public NLP() {
 	}
@@ -25,39 +31,32 @@ public class NLP {
 		return matcher.matches();
 	}
 
-	// 연결어미만 잘라내기 (미실행)
-	private static boolean regexJ(String pos) {
-		String pattern = "JKS|JKC|JKG|JKO|JKB|JKV|JKQ|JX|JC|EP|EF|EC|ETN|ETM";
-		Pattern compiledPattern = Pattern.compile(pattern);
-		Matcher matcher = compiledPattern.matcher(pos);
+	// 부정문을 먼저 확인하고 , 리스트를 반환
+	private static List<String> negativeNNP(String text) {
 
-		return matcher.matches();
-	}
-	
-	// (미실행)
-	private static List<String> 어미붙이기(List<Token> list) {
-		List<String> mergedList = new ArrayList<>();
-		List<String> morphList = new ArrayList<>();
-		String empty = "";
-		int mergedCount = 0;
+//		komoran.setUserDic(ChatServlet.filepath);
+//		komoran.setUserDic("negative.dic");
 
-		// regexJ가 트루일때만 바로 앞에 녀석과 합치기
-		for (Token token : list) {
-			morphList.add(token.getMorph());
+		// 결론 파라미터에 그냥 절대경로 써서 사용하자.... 이건 방법이없다.... 넘무 어려워
+		komoran.setUserDic("C://Users//GGG//git//foodchat//negative.dic");
 
-			if (regexJ(token.getPos())) {
-				mergedCount--;
-				String target = mergedList.get(mergedCount);
-				String result = target + token.getMorph();
-				mergedList.remove(mergedCount);
-				mergedList.add(result);
-				mergedCount++;
-			} else {
-				mergedList.add(token.getMorph());
-				mergedCount++;
+		List<String> list = new ArrayList<>();
+		String userInputText = text;
+		String trimText = userInputText.trim();
+
+		List<Token> tokens = komoran.analyze(trimText).getTokenList();
+		for (Token token : tokens) {
+
+			if (regexN(token.getPos())) {
+				System.out.println("문자열 : " + token.getMorph());
+				System.out.println("품사 : " + token.getPos());
+				list.add(token.getMorph());
 			}
 		}
-		return mergedList;
+
+		List<String> result = dao.searchNegativeWord(list);
+
+		return result;
 	}
 
 //	현재의 형태로는 한계가 존재
@@ -69,36 +68,14 @@ public class NLP {
 //	나머지는 ~이(가) 형태로 되묻기 가능
 
 	public static List<String> doNLP(String text) {
-		Komoran komoran = new Komoran(DEFAULT_MODEL.FULL);
-//		komoran.setUserDic("user.dic");
-		String userInputText = text;
-		String trimText = userInputText.trim();
-		Set<String> resultSet = new LinkedHashSet<>();
+		List<String> resultSet = negativeNNP(text);
 		List<String> resultList = new ArrayList<>();
-
-		// 형태소만 보내는주는 애
-//		List<String> komoList = komoran.analyze(userText).getNouns();
-//		for(String token : komoList) {
-//			System.out.println(token);
-//		}
-//		System.out.println(komoList);
-
-		// 토큰을 참조하는 형태소와 품사
-		List<Token> tokens = komoran.analyze(trimText).getTokenList();
-		for (Token token : tokens) {
-
-			if (regexN(token.getPos())) {
-//			System.out.println("문자열 : " + token.getMorph());
-				resultSet.add(token.getMorph());
-//			System.out.println("품사 : " + token.getPos());
-			}
-		}
 
 		for (String s : resultSet) {
 			resultList.add(s);
 		}
 
-		System.out.println("리스트 출력이요 : " + resultList);
+		System.out.println("단어 리스트 : " + resultList);
 
 		return resultList;
 	}

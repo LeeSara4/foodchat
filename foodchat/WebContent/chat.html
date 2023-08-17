@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUNGS | foodchatbot</title>
+    <link rel="stylesheet" href="view/chat.css">
+    <script src="
+    https://cdn.jsdelivr.net/npm/sweetalert2@11.7.20/dist/sweetalert2.all.min.js
+    "></script>
+</head>
+
+<body>
+    <div id="contentWrap">
+        <nav>
+        </nav>
+        <div id="contentCover">
+            <div id="roomWrap">
+                <input type="button" id="map" value="지도"><br>
+                <div id="resolved">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 30 30" fill="none">
+                        <path
+                            d="M11.2734 0C9.21348 0 7.52809 1.65168 7.52809 3.67039V7.34078H0.374532C0.149813 7.34078 0.0374532 7.48759 0.0374532 7.67111V16.5168C0.0374532 17.5445 0.861423 18.3519 1.91011 18.3519H28.1273C29.176 18.3519 30 17.5445 30 16.5168V7.67111C30 7.45089 29.8502 7.34078 29.6629 7.34078H22.5094V3.67039C22.5094 1.65168 20.824 0 18.764 0L11.2734 0ZM11.2734 3.67039H18.764V7.34078H11.2734V3.67039ZM0.0374532 21.692V29.0328C0.0374532 29.2163 0.187266 29.3631 0.374532 29.3631H29.6255C29.8127 29.3631 29.9625 29.2163 29.9625 29.0328V21.692C29.3633 21.9122 28.764 22.0223 28.0899 22.0223H1.87266C1.1985 22.0223 0.599251 21.8755 0 21.692H0.0374532Z"
+                            fill="black" />
+                    </svg>
+                    <div id="resolve">음식점 찾기</div>
+                </div>
+                <div class="list-box" id="listBox"></div>
+            </div>
+            <div id="chatWrap">
+                <div id="chatHeader">FoodChat</div>
+                <div id="chatLog">
+                </div>
+                <div class="dropdown">
+                    <div id="optionListDiv">
+                        <div id="optionList"></div>
+                    </div>
+                </div>
+                <form id="chatForm">
+                    <input type="text" autocomplete="off" size="30" id="chat" placeholder="메시지를 입력하세요">
+                    <input type="submit" id="submit" value="보내기">
+                </form>
+            </div>
+            <div id="memberWrap">
+                <div id="memberList">
+                    <div id="memberHeader">쇼핑몰</div>
+                    <div id="memberSelect"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="view/chat.js"></script>
+</body>
+
+</html>

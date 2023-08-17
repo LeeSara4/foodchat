@@ -20,5 +20,10 @@ public class WordCategory {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	@Override
+	public String toString() {
+		return "WordCategory [word=" + word + ", category=" + category + "]";
+	}
+	
 	
 }
